@@ -35,11 +35,11 @@
             @endif --}}
 
             <!-- Page Content -->
-            <div class="container py-8 grid grid-cols-5">
+            <div class="container py-8 grid grid-cols-5 gap-6">
 
                 <aside>
                     <h1 class="font-bold text-lg mb-4">Edición del curso</h1>
-                    <ul class="text-sm text-gray-600">
+                    <ul class="text-sm text-gray-600 mb-4">
                         <li class="leading-7 mb-1 border-l-4 @routeIs('instructor.courses.edit', $course) border-indigo-400 @else border-transparent @endif pl-2">
                             <a href="{{ route('instructor.courses.edit', $course) }}">Información del curso</a>
                         </li>
@@ -49,10 +49,37 @@
                         <li class="leading-7 mb-1 border-l-4 @routeIs('instructor.courses.goals', $course) border-indigo-400 @else border-transparent @endif pl-2">
                             <a href="{{ route('instructor.courses.goals', $course) }}">Metas del curso</a>
                         </li>
-                        <li class="leading-7 mb-1 border-l-4 border-transparent pl-2">
-                            <a href="">Estudiantes</a>
+                        <li class="leading-7 mb-1 border-l-4 @routeIs('instructor.courses.students', $course) border-indigo-400 @else border-transparent @endif pl-2">
+                            <a href="{{ route('instructor.courses.students', $course) }}">Estudiantes</a>
                         </li>
                     </ul>
+
+                    @switch($course->status)
+                        @case(1)
+                            <form action="{{ route('instructor.courses.status', $course) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger">Solicitar revisión</button>
+                            </form>
+                            @break
+                        @case(2)
+                            <div class="card text-yellow-500">
+                                <div class="card-body font-bold">
+                                    Curso en revisión
+                                </div>
+                            </div>
+                            @break
+                        @case(3)
+                            <div class="card text-green-500">
+                                <div class="card-body font-bold">
+                                    Curso publicado
+                                </div>
+                            </div>
+                        @break
+                        @default
+                            
+                    @endswitch
+
+                    
                 </aside>
         
                 <div class="col-span-4 card">

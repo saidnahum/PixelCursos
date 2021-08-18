@@ -104,4 +104,9 @@ class Course extends Model
     public function lessons(){
         return $this->hasManyThrough('App\Models\Lesson', 'App\Models\Section');
     }
+
+    // Relacion 1 a 1 con observation
+    public function observation(){
+        return $this->hasOne('App\Models\Observation');
+    }
 }
