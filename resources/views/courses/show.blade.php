@@ -57,7 +57,7 @@
             </section>
 
             {{-- Requisitos --}}
-            <section class="mb-8">
+            <section class="mb-8 text-gray-800">
                 <h1 class="font-bold text-2xl">Requisitos</h1>
                 <ul class="list-disc list-inside">
                     @foreach ($course->requirements as $requirement)
@@ -68,11 +68,13 @@
 
             {{-- Descripcion del curso --}}
             <section>
-                <h1 class="font-bold text-3xl">Descripción</h1>
+                <h1 class="font-bold text-3xl text-gray-800">Descripción</h1>
                 <div class="text-gray-700 text-base">
                     {!! $course->description !!}
                 </div>
             </section>
+
+            @livewire('courses-reviews', ['course' => $course])
         </div>
 
         {{-- Parte derecha --}}
@@ -89,10 +91,18 @@
                     @can('enrolled', $course)
                         <a class="btn btn-danger btn-block mt-4" href="{{ route('courses.status', $course) }}">Continuar con el curso</a>
                     @else
-                        <form action="{{ route('courses.enrolled', $course) }}" method="POST">
-                            @csrf
-                            <button class="btn btn-danger btn-block mt-4" type="submit">Tomar curso</button>
-                        </form>
+                        @if ($course->price->value == 0)
+                            <p class="text-2xl font-bold text-gray-500 mt-3 mb-2 text-center">Gratis</p> 
+
+                            <form action="{{ route('courses.enrolled', $course) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger btn-block" type="submit">Tomar curso</button>
+                            </form>
+                        @else
+                            <p class="text-2xl font-bold text-gray-500 mt-3 mb-2 text-center">MX$ {{ $course->price->value }}</p>
+                            
+                            <a class="btn btn-danger btn-block" href="{{ route('payment.checkout', $course) }}">Comprar este curso</a>
+                        @endif
                     @endcan
                     
                 </div>

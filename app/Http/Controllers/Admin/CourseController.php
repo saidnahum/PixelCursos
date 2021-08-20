@@ -51,6 +51,7 @@ class CourseController extends Controller
     }
 
     public function reject(Request $request, Course $course){
+
         $request->validate([
             'body' => 'required'
         ]);
@@ -66,6 +67,5 @@ class CourseController extends Controller
         Mail::to($course->teacher->email)->queue($mail);
 
         return redirect()->route('admin.courses.index')->with('info', 'El curso se ha rechazado con éxito !!');
-
     }
 }

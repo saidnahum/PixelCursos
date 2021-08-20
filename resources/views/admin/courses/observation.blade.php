@@ -13,9 +13,11 @@
         <div class="form-group">  
           {!! Form::label('body', 'Observaciones del curso:', ['class' => 'font-bold']) !!}
           {!! Form::textarea('body', null) !!}
+
           @error('body')
               <strong class="text-danger">{{ $message }}</strong>
           @enderror 
+          
         </div>
         {!! Form::submit('Rechazar curso', ['class' => 'btn btn-danger mt-4']) !!}
       {!! Form::close() !!}

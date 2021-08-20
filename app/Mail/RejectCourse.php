@@ -31,6 +31,6 @@ class RejectCourse extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.rejecte-course')->subject('Curso Rechazado');
+        return $this->view('mail.reject-course')->subject('Curso Rechazado');
     }
 }

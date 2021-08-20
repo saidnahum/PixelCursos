@@ -12,7 +12,6 @@ class Observation extends Model
     protected $fillable = ['body', 'course_id'];
 
     // Relacion 1 a 1 inversa con Course
-
     public function course(){
         return $this->belongsTo('App\Models\Course');
     }
